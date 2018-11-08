@@ -1,0 +1,19 @@
+[Unit]
+Description=Ping hosts and report to statsd
+Requires=network.target
+
+[Service]
+Environment=PING_GOOGLE_PRIMARY_DNS=8.8.8.8
+Environment=PING_GOOGLE_SECONDARY_DNS=8.8.4.4
+Environment=PING_SOMETHING_ELSE=a.b.c.d
+Environment=STATSD_HOST=127.0.0.1
+Environment=STATSD_PORT=8125
+Environment=METRIC_BASE=chendo.ping
+Environment=QUIET=true
+Environment=INTERVAL=1
+User=ping-statsd
+ExecStart=/opt/ping-statsd/ping-statsd
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
